@@ -26,7 +26,7 @@ class HomeController extends Controller
         if(\Auth::user()->position === 'Admin'){
             return view('admin.admin');
         }
-        else if(\Auth::user()->position === 'AE'){
+        else if(\Auth::user()->position === 'Account Executive'){
             return view('accountexecutive.ae');
         }
         //return view('home');

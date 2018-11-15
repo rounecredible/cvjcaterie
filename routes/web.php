@@ -15,14 +15,18 @@ Route::get('/', function () {
     return view('auth.login');
 });
 
+Route::get('/register', function () {
+    return view('auth.register');
+});
+
 
 
 //Admin Routes
 Route::get('/admin', 'AdminController@index');
-Route::get('/admin/ViewEvents', 'AdmminController@viewEvents');
-Route::get('/admin/AddEvent', 'AdminController@addEvent');
-Route::get('/admin/ViewClients', 'AdminController@viewClients');
-Route::get('/admin/AddClient', 'AdminController@index');
+Route::get('/ViewEvents', 'AdminController@viewEvents');
+Route::get('/AddEvent', 'AdminController@addEventView');
+Route::get('/ViewClients', 'AdminController@viewClients');
+Route::get('/admin/AddClient', 'AdminController@addClientView');
 Route::get('/admin/Calendar', 'AdminController@index');
 
 //AE Routes
