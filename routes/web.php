@@ -26,15 +26,29 @@ Route::get('/admin', 'AdminController@index');
 Route::get('/ViewEvents', 'AdminController@viewEvents');
 Route::get('/AddEvent', 'AdminController@addEventView');
 Route::get('/ViewClients', 'AdminController@viewClients');
-Route::get('/admin/AddClient', 'AdminController@addClientView');
-Route::get('/admin/Calendar', 'AdminController@index');
+Route::get('/AddClientView', 'AdminController@addClientView');
+Route::post('/AddClient', 'AdminController@addClient');
+Route::get('/BEO', 'AdminController@viewBEO');
+Route::get('/Resources', 'AdminController@viewResources');
+Route::get('/Reports', 'AdminController@viewReports');
+Route::get('/Files', 'AdminController@viewFiles');
+Route::get('/AdminSettings', 'AdminController@viewSettings');
+Route::get('/Notifications', 'AdminController@viewNotifications');
+Route::get('/Quotations', 'AdminController@viewQuotations');
+
+
+
 
 //AE Routes
 Route::get('/ae', 'AEController@index');
-Route::get('/ae/ViewEvents', 'AEController@viewEvents');
-Route::get('/ae/AddEvent', 'AEController@addEvent');
-Route::get('/ae/ViewClients', 'AEController@viewClients');
-Route::get('/ae/AddClient', 'AEController@index');
+Route::get('/aeViewEvents', 'AEController@viewEvents');
+Route::get('/aeAddEvent', 'AEController@addEvent');
+Route::get('/aeViewClients', 'AEController@viewClients');
+Route::get('/aeAddClient', 'AEController@addClient');
+Route::get('/aeBEO', 'AEController@viewBEO');
+Route::get('/aeBES', 'AEController@viewBES');
+
+
 //Stockman Routes
 Route::get('/stockman', 'StockmanController@index');
 
