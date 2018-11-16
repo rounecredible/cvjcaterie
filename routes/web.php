@@ -24,7 +24,8 @@ Route::get('/register', function () {
 //Admin Routes
 Route::get('/admin', 'AdminController@index');
 Route::get('/ViewEvents', 'AdminController@viewEvents');
-Route::get('/AddEvent', 'AdminController@addEventView');
+Route::get('/AddEventView', 'AdminController@addEventView');
+Route::post('/AddEvent', 'AdminController@addEvent');
 Route::get('/ViewClients', 'AdminController@viewClients');
 Route::get('/AddClientView', 'AdminController@addClientView');
 Route::post('/AddClient', 'AdminController@addClient');
@@ -35,7 +36,7 @@ Route::get('/Files', 'AdminController@viewFiles');
 Route::get('/AdminSettings', 'AdminController@viewSettings');
 Route::get('/Notifications', 'AdminController@viewNotifications');
 Route::get('/Quotations', 'AdminController@viewQuotations');
-Route::get('/ClientInformation', 'AdminController@viewClientInformation');
+Route::get('/ClientInformation', 'AdminController@viewClientInformation')->name('client');
 
 
 

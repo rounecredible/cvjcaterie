@@ -20,8 +20,9 @@ class AdminController extends Controller
     }
 
     public function viewEvents(){
+        $events = Event::orderBy('eventname', 'asc')->get();
         if(\Auth::user()->position === 'Admin'){
-            return view('admin.viewEvents');
+            return view('admin.viewEvents')->with('events', $events);
         }
         else{
             return 'return You do not have access to this page!';
@@ -110,6 +111,17 @@ class AdminController extends Controller
             return 'return You do not have access to this page!';
         }
     }
+
+    public function addEventView(){
+        
+        if(\Auth::user()->position === 'Admin'){
+            return view('admin.addEvent');
+        }
+        else{
+            return 'return You do not have access to this page!';
+        }
+    }
+
 
 
     //Queries
