@@ -35,6 +35,8 @@ Route::get('/Files', 'AdminController@viewFiles');
 Route::get('/AdminSettings', 'AdminController@viewSettings');
 Route::get('/Notifications', 'AdminController@viewNotifications');
 Route::get('/Quotations', 'AdminController@viewQuotations');
+Route::get('/ClientInformation', 'AdminController@viewClientInformation');
+
 
 
 

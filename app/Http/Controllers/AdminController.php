@@ -111,6 +111,7 @@ class AdminController extends Controller
         }
     }
 
+
     //Queries
 
     public function addClient(Request $request){
@@ -138,6 +139,8 @@ class AdminController extends Controller
 
         return redirect('/ViewClients')->with('success', 'Client added!');
     }
+
+
 
 
 }
