@@ -36,7 +36,12 @@ Route::get('/Files', 'AdminController@viewFiles');
 Route::get('/AdminSettings', 'AdminController@viewSettings');
 Route::get('/Notifications', 'AdminController@viewNotifications');
 Route::get('/Quotations', 'AdminController@viewQuotations');
-Route::get('/ClientInformation', 'AdminController@viewClientInformation')->name('client');
+
+Route::get('/AddEventDetailsView', 'AdminController@addEventDetailsView');
+Route::post('/AddEventDetails', 'AdminController@addEventDetails');
+
+Route::resource('clients', 'ClientsController');
+Route::resource('events', 'EventsController');
 
 
 
@@ -53,7 +58,7 @@ Route::get('/aeBES', 'AEController@viewBES');
 
 
 //Stockman Routes
-Route::get('/stockman', 'StockmanController@index');
+Route::get('/stockman', 'StockmanController@viewResources');
 
 //Finance Unit Routes
 Route::get('/finance', 'FinanceController@index');

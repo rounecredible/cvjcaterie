@@ -6,17 +6,64 @@ use Illuminate\Http\Request;
 use DB;
 use App\Event;
 use App\Client;
+use App\Additionals;
+use App\CvjMenu;
+use App\PackageStyling;
+use App\CvjResources;
+use Calendar;
 
 class AdminController extends Controller
 {
     public function index(){
+      //   if(\Auth::user()->position === 'Admin'){
+        //    return view('admin.admin');
+        //}
+        //else{
+          //  return 'You do not have access to this page!';
+        //}
+        
+        $events = [];
+
+       $data = Event::all();
+
+       if($data->count()){
+
+          foreach ($data as $key => $value) {
+
+            $events[] = Calendar::event(
+
+                $value->title,
+
+                true,
+
+                new \DateTime($value->start_date),
+
+                new \DateTime($value->end_date.' +1 day')
+
+            );
+
+          }
+
+       }
+
+      $calendar = Calendar::addEvents($events); 
+
+      return view('admin.admin', compact('calendar'));
+
+
+
+        
+        
+    }
+
+    public function viewResources(){
+        $resources = CvjResources::orderBy('category', 'asc')->get();
         if(\Auth::user()->position === 'Admin'){
-            return view('admin.admin');
+            return view('admin.viewResources')->with('resources', $resources);
         }
         else{
-            return 'You do not have access to this page!';
+            return 'return You do not have access to this page!';
         }
-        
     }
 
     public function viewEvents(){
@@ -28,6 +75,7 @@ class AdminController extends Controller
             return 'return You do not have access to this page!';
         }
     }
+
 
     public function viewClients(){
         $clients = Client::orderBy('lastname', 'asc')->get();
@@ -49,14 +97,7 @@ class AdminController extends Controller
         }
     }
 
-    public function viewResources(){
-        if(\Auth::user()->position === 'Admin'){
-            return view('admin.viewResources');
-        }
-        else{
-            return 'return You do not have access to this page!';
-        }
-    }
+    
 
     public function viewReports(){
         if(\Auth::user()->position === 'Admin'){
@@ -122,9 +163,63 @@ class AdminController extends Controller
         }
     }
 
+    
+
+    public function addEventDetailsView(){
+        // $cvjmenu = CvjMenu::get();
+        $packagestyling = PackageStyling::orderBy('package', 'asc')->get();
+       $additionals = Additionals::orderBy('category', 'asc')->get();
+        $events=Event::orderBy('id', 'desc')->first();
+        return view('admin.addEventDetails')->with('packagestyling', $packagestyling)
+        ->with('additionals', $additionals)
+        ->with('events', $events);
+    }
+
+    public function addEventDetails(Request $request){
+
+    }
+
 
 
     //Queries
+
+    public function addEvent(Request $request){
+        $this->validate($request, [
+            'client' => 'required',
+            'eventname' => 'required',
+            'eventtype' => 'required',
+            'date' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
+            'venuetype' => 'required',
+            'venueaddress' => 'required',
+            'pax' => 'required',
+        ]);
+
+        $id = \Auth::user()->id;
+        $type = $request->input('eventtype');
+
+        $event = new Event;
+        $event->client = $request->input('client');
+        $event->eventname = $request->input('eventname');
+        $event->eventtype = $request->input('eventtype');
+        $event->date = $request->input('date');
+        $event->starttime = $request->input('starttime');
+        $event->endtime = $request->input('endtime');
+        $event->venuetype = $request->input('venuetype');
+        $event->venueaddress = $request->input('venueaddress');
+        $event->pax = $request->input('pax');
+        $event->status = "For Inquiry";
+        $event->package = $request->input('eventtype');
+        $event->assigned_to = $id;
+        $event->save();
+
+        if($type === 'Grand Wedding'){
+           
+        }
+        return redirect('/AddEventDetailsView');
+
+    }
 
     public function addClient(Request $request){
         $this->validate($request, [
@@ -137,10 +232,11 @@ class AdminController extends Controller
         
         
         $date = date('Y-m-d H:i:s');
-        $id = 1;
+        $id = \Auth::user()->id;
+
         
-        $client = new Client;
-        $client->firstname = $request->input('firstname');
+        
+         $client->firstname = $request->input('firstname');
         $client->lastname = $request->input('lastname');
         $client->contactnumber = $request->input('contactnumber');
         $client->email = $request->input('email');
