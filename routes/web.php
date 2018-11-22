@@ -36,6 +36,14 @@ Route::get('/Files', 'AdminController@viewFiles');
 Route::get('/AdminSettings', 'AdminController@viewSettings');
 Route::get('/Notifications', 'AdminController@viewNotifications');
 Route::get('/Quotations', 'AdminController@viewQuotations');
+Route::get('/chooseEvent', 'AdminController@chooseEvent');
+
+Route::get('/addGrandWeddingView', 'AdminController@addGrandWeddingView');
+Route::post('/AddGrandWedding', 'AdminController@addGrandWedding');
+
+Route::get('/quotation/{id}', ['uses' => 'AdminController@updateQuotation', 'as' => 'quotation']);
+Route::get('/confirmEvent/{id}', ['uses' => 'AdminController@confirmEvent', 'as' => 'confirmevent']);
+Route::get('/confirm/{id}', ['uses' => 'AdminController@confirm', 'as' => 'confirm']);
 
 Route::get('/AddEventDetailsView', 'AdminController@addEventDetailsView');
 Route::post('/AddEventDetails', 'AdminController@addEventDetails');
